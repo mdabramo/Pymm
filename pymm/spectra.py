@@ -38,13 +38,19 @@ def calc_abs(energies: np.ndarray, pert_matrix: np.ndarray,
         0
     '''
 
-    plt.style.use('seaborn-colorblind')
+    plt.style.use('classic')
 
     fig, ax = plt.subplots(1, 1, figsize=(8,5))
 
     exc_ens = (energies[:, 1:] - np.expand_dims(energies[:, 0], axis=1)) / (2
               * np.pi)
     mu_squareds = (pert_matrix[:, 0, 1:, :]**2).sum(axis=2)
+
+    with open("perturbed_dipoles.txt", "w") as f:
+        f.write("# Perturbed Dipoles:\n")
+        for row in mu_squareds:
+            line = " ".join(f"{x:.18e}" for x in row)
+            f.write(line + "\n")
 
     n_frames = energies.shape[0]
     n_states = energies.shape[1]
