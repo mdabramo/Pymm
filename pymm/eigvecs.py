@@ -139,7 +139,7 @@ def eig_hist(eig, n_states, save_fn, dpi):
     plt.rcParams['legend.fontsize'] = 20
     plt.rcParams['axes.linewidth'] = 1.5
 
-    plt.style.use('seaborn-colorblind')
+    plt.style.use('classic')
 
     xsize =  6 + n_states*0.7
     fig, ax = plt.subplots(1, 1, figsize=(xsize, 7))
@@ -150,6 +150,13 @@ def eig_hist(eig, n_states, save_fn, dpi):
 
     ys = [[] for i in range(n_states)]
     # x = [i+1 for i in range(n_states)]
+
+    #Save contributions of umperturbed eigenvectors to perturbed eigenvectors. j: unperturbed. i: perturbed
+    for j in range(n_states):
+        for i in range(n_states):
+            contr = (eig[:, j, i]**2)
+            df = pd.DataFrame({'frame': np.arange(len(contr)),'contribution': contr})
+            np.savetxt(f'{j}unpert_to_{i}pert.dat', np.column_stack((np.arange(len(contr)), contr)), fmt='%d %.8f')
 
     for i in range(n_states):
         for j in range(n_states):
