@@ -149,6 +149,15 @@ Example 1: select atoms from 1 to 5:
 #### OUTPUT
 * -o: job name that will be used as a prefix to all the output files. (Default: pymm). The programs will output: QC geometry as an xyz file, eigenvalues and eigenvectors. 
 
+#### PARELLEL VERSION 
+### run_pmm in parallel
+
+Use a slightly modified version for running **run_pmm** program using 8 processes (arguments in "[ ]" are optional):
+
+```
+python /path_to/pymm_parallel_main.py run_pmm -g geometry -gu [units] -dm dipole_matrix -e energies -ch [QC_atomic_charges] -traj traj.xtc -top traj.tpr -q [QC_charge] -nm 1:3 -o [eigvals.txt] -oc [eigvecs] --n-workers 8
+```
+
 <br></br>
 
 ### eig
